@@ -6,14 +6,18 @@ const { fifaData } = require('./fifa.js')
 Practice accessing data by console.log-ing the following pieces of data note, you may want to filter the data first 😉*/
 
 //(a) Home Team name for 2014 world cup final
-
+fifaData.filter(val => val.Year === 2014).filter(val => val.Stage === 'Final')[0]['Home Team Name'];
 //(b) Away Team name for 2014 world cup final
+fifaData.filter(val => val.Year === 2014).filter(val => val.Stage === 'Final')[0]['Away Team Name'];
 
 //(c) Home Team goals for 2014 world cup final
+fifaData.filter(val => val.Year === 2014).filter(val => val.Stage === 'Final')[0]['Home Team Goals'];
 
 //(d) Away Team goals for 2014 world cup final
+fifaData.filter(val => val.Year === 2014).filter(val => val.Stage === 'Final')[0]['Away Team Goals'];
 
 //(e) Winner of 2014 world cup final */
+fifaData.filter(val => val.Year === 2014).filter(val => val.Stage === 'Final')[0]['Win conditions'];
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -24,8 +28,8 @@ Use getFinals to do the following:
 hint - you should be looking at the stage key inside of the objects
 */
 
-function getFinals(/* code here */) {
-   /* code here */
+function getFinals(data) {
+   return data.filter(val => val.Stage === "Final");
 }
 
 
@@ -35,11 +39,15 @@ Use the higher-order function called getYears to do the following:
 1. Receive an array
 2. Receive a callback function getFinals from task 2 
 3. Return an array called years containing all of the years in the getFinals data set*/
+//function processArray (arr) {
+  //  return arr.map(val => val.Year);
+//}
 
-function getYears(/* code here */) {
-    /* code here */
+function getYears(arrayIn,callback) {
+    let years = arrayIn.map(val => val.Year);
+    return years;
 }
-
+//getYears(fifaData,processArray);
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -49,9 +57,127 @@ Use the higher-order function getWinners to do the following:
 3. Determines the winner (home or away) of each `finals` game. 
 4. Returns the names of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
-    /* code here */
+/*const fifaData = [
+    {
+      "Year": 2014,
+      "Datetime": "13 Jul 2014 - 16:00",
+      "Stage": "Final",
+      "Stadium": "Estadio do Maracana",
+      "City": "Rio De Janeiro",
+      "Home Team Name": "Germany",
+      "Home Team Goals": 1,
+      "Away Team Goals": 0,
+      "Away Team Name": "Argentina",
+      "Win conditions": "Germany win after extra time",
+      "Attendance": 74738,
+      "Half-time Home Goals": 0,
+      "Half-time Away Goals": 0,
+      "Referee": "Nicola RIZZOLI (ITA)",
+      "Assistant 1": "Renato FAVERANI (ITA)",
+      "Assistant 2": "Andrea STEFANI (ITA)",
+      "RoundID": 255959,
+      "MatchID": 300186501,
+      "Home Team Initials": "GER",
+      "Away Team Initials": "ARG"
+    },
+    {
+      "Year": 2014,
+      "Datetime": "09 Jul 2014 - 17:00",
+      "Stage": "Semi-finals",
+      "Stadium": "Arena de Sao Paulo",
+      "City": "Sao Paulo",
+      "Home Team Name": "Netherlands",
+      "Home Team Goals": 0,
+      "Away Team Goals": 0,
+      "Away Team Name": "Argentina",
+      "Win conditions": "Argentina win on penalties (2 - 4)",
+      "Attendance": 63267,
+      "Half-time Home Goals": 0,
+      "Half-time Away Goals": 0,
+      "Referee": "C�neyt �AKIR (TUR)",
+      "Assistant 1": "DURAN Bahattin (TUR)",
+      "Assistant 2": "ONGUN Tarik (TUR)",
+      "RoundID": 255955,
+      "MatchID": 300186490,
+      "Home Team Initials": "NED",
+      "Away Team Initials": "ARG"
+    },
+    {
+        "Year": 1930,
+        "Datetime": "30 Jul 1930 - 14:15",
+        "Stage": "Final",
+        "Stadium": "Estadio Centenario",
+        "City": "Montevideo",
+        "Home Team Name": "Uruguay",
+        "Home Team Goals": 4,
+        "Away Team Goals": 2,
+        "Away Team Name": "Argentina",
+        "Win conditions": "",
+        "Attendance": 68346,
+        "Half-time Home Goals": 1,
+        "Half-time Away Goals": 2,
+        "Referee": "LANGENUS Jean (BEL)",
+        "Assistant 1": "SAUCEDO Ulises (BOL)",
+        "Assistant 2": "CRISTOPHE Henry (BEL)",
+        "RoundID": 405,
+        "MatchID": 1087,
+        "Home Team Initials": "URU",
+        "Away Team Initials": "ARG"
+      },
+    {
+      "Year": 2014,
+      "Datetime": "05 Jul 2014 - 17:00",
+      "Stage": "Quarter-finals",
+      "Stadium": "Arena Fonte Nova",
+      "City": "Salvador",
+      "Home Team Name": "Netherlands",
+      "Home Team Goals": 0,
+      "Away Team Goals": 0,
+      "Away Team Name": "Costa Rica",
+      "Win conditions": "Netherlands win on penalties (4 - 3)",
+      "Attendance": 51179,
+      "Half-time Home Goals": 0,
+      "Half-time Away Goals": 0,
+      "Referee": "Ravshan IRMATOV (UZB)",
+      "Assistant 1": "RASULOV Abduxamidullo (UZB)",
+      "Assistant 2": "KOCHKAROV Bakhadyr (KGZ)",
+      "RoundID": 255953,
+      "MatchID": 300186488,
+      "Home Team Initials": "NED",
+      "Away Team Initials": "CRC"
+    },
+    {
+      "Year": 2014,
+      "Datetime": "05 Jul 2014 - 13:00",
+      "Stage": "Quarter-finals",
+      "Stadium": "Estadio Nacional",
+      "City": "Brasilia",
+      "Home Team Name": "Argentina",
+      "Home Team Goals": 1,
+      "Away Team Goals": 0,
+      "Away Team Name": "Belgium",
+      "Win conditions": "",
+      "Attendance": 68551,
+      "Half-time Home Goals": 1,
+      "Half-time Away Goals": 0,
+      "Referee": "Nicola RIZZOLI (ITA)",
+      "Assistant 1": "Renato FAVERANI (ITA)",
+      "Assistant 2": "Andrea STEFANI (ITA)",
+      "RoundID": 255953,
+      "MatchID": 300186504,
+      "Home Team Initials": "ARG",
+      "Away Team Initials": "BEL"
+    }
+  ];
+  function getFinals(data) {
+    return data.filter(val => val.Stage === "Final");
+ }
+*/
+function getWinners(arr,callback) {
+    return callback(arr).map(val =>  val['Away Team Goals'] > val['Home Team Goals'] ? val['Away Team Name'] : val['Home Team Name']);
+    
 }
+//getWinners(fifaData,getFinals);
 
 
 
@@ -65,10 +191,123 @@ Use the higher-order function getWinnersByYear to do the following:
 
 hint: the strings returned need to exactly match the string in step 4.
  */
-
-function getWinnersByYear(/* code here */) {
-    /* code here */
+/*
+const fifaData = [
+    {
+      "Year": 2014,
+      "Datetime": "13 Jul 2014 - 16:00",
+      "Stage": "Final",
+      "Stadium": "Estadio do Maracana",
+      "City": "Rio De Janeiro",
+      "Home Team Name": "Germany",
+      "Home Team Goals": 1,
+      "Away Team Goals": 0,
+      "Away Team Name": "Argentina",
+      "Win conditions": "Germany win after extra time",
+      "Attendance": 74738,
+      "Half-time Home Goals": 0,
+      "Half-time Away Goals": 0,
+      "Referee": "Nicola RIZZOLI (ITA)",
+      "Assistant 1": "Renato FAVERANI (ITA)",
+      "Assistant 2": "Andrea STEFANI (ITA)",
+      "RoundID": 255959,
+      "MatchID": 300186501,
+      "Home Team Initials": "GER",
+      "Away Team Initials": "ARG"
+    },
+    {
+      "Year": 2014,
+      "Datetime": "09 Jul 2014 - 17:00",
+      "Stage": "Semi-finals",
+      "Stadium": "Arena de Sao Paulo",
+      "City": "Sao Paulo",
+      "Home Team Name": "Netherlands",
+      "Home Team Goals": 0,
+      "Away Team Goals": 0,
+      "Away Team Name": "Argentina",
+      "Win conditions": "Argentina win on penalties (2 - 4)",
+      "Attendance": 63267,
+      "Half-time Home Goals": 0,
+      "Half-time Away Goals": 0,
+      "Referee": "C�neyt �AKIR (TUR)",
+      "Assistant 1": "DURAN Bahattin (TUR)",
+      "Assistant 2": "ONGUN Tarik (TUR)",
+      "RoundID": 255955,
+      "MatchID": 300186490,
+      "Home Team Initials": "NED",
+      "Away Team Initials": "ARG"
+    },
+    {
+      "Year": 2014,
+      "Datetime": "05 Jul 2014 - 17:00",
+      "Stage": "Quarter-finals",
+      "Stadium": "Arena Fonte Nova",
+      "City": "Salvador",
+      "Home Team Name": "Netherlands",
+      "Home Team Goals": 0,
+      "Away Team Goals": 0,
+      "Away Team Name": "Costa Rica",
+      "Win conditions": "Netherlands win on penalties (4 - 3)",
+      "Attendance": 51179,
+      "Half-time Home Goals": 0,
+      "Half-time Away Goals": 0,
+      "Referee": "Ravshan IRMATOV (UZB)",
+      "Assistant 1": "RASULOV Abduxamidullo (UZB)",
+      "Assistant 2": "KOCHKAROV Bakhadyr (KGZ)",
+      "RoundID": 255953,
+      "MatchID": 300186488,
+      "Home Team Initials": "NED",
+      "Away Team Initials": "CRC"
+    },
+    {
+      "Year": 2014,
+      "Datetime": "05 Jul 2014 - 13:00",
+      "Stage": "Quarter-finals",
+      "Stadium": "Estadio Nacional",
+      "City": "Brasilia",
+      "Home Team Name": "Argentina",
+      "Home Team Goals": 1,
+      "Away Team Goals": 0,
+      "Away Team Name": "Belgium",
+      "Win conditions": "",
+      "Attendance": 68551,
+      "Half-time Home Goals": 1,
+      "Half-time Away Goals": 0,
+      "Referee": "Nicola RIZZOLI (ITA)",
+      "Assistant 1": "Renato FAVERANI (ITA)",
+      "Assistant 2": "Andrea STEFANI (ITA)",
+      "RoundID": 255953,
+      "MatchID": 300186504,
+      "Home Team Initials": "ARG",
+      "Away Team Initials": "BEL"
+    }
+  ];
+  function getFinals(data) {
+    return data.filter(val => val.Stage === "Final");
+ }
+ function processArray (arr) {
+    return arr.map(val => val.Year);
 }
+
+function getYears(arrayIn,callback) {
+    let years = callback(arrayIn);
+    return years;
+}
+//getYears(fifaData,processArray);
+
+
+
+ 
+function getWinners(arr,callback) {
+    let finalists = callback(arr);
+    return finalists.map(val => val['Win conditions'].slice(0,val['Win conditions'].indexOf(" ")));
+};
+*/
+function getWinnersByYear(arrIn,callbackFinals,callbackYears,callbackWinners) {
+    //for (let i = 0; i < callbackFinals(arrIn).length; i++) {
+     return   callbackFinals(arrIn).map((val,i) =>  `In ${callbackYears(arrIn,callbackFinals)[i]}, ${callbackWinners(arrIn,callbackFinals)[i]} won the world cup!`)
+   } 
+//getWinnersByYear(fifaData,getFinals,getYears,getWinners);
 
 
 
@@ -82,9 +321,127 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
+/*const fifaData = [
+    {
+      "Year": 2014,
+      "Datetime": "13 Jul 2014 - 16:00",
+      "Stage": "Final",
+      "Stadium": "Estadio do Maracana",
+      "City": "Rio De Janeiro",
+      "Home Team Name": "Germany",
+      "Home Team Goals": 1,
+      "Away Team Goals": 0,
+      "Away Team Name": "Argentina",
+      "Win conditions": "Germany win after extra time",
+      "Attendance": 74738,
+      "Half-time Home Goals": 0,
+      "Half-time Away Goals": 0,
+      "Referee": "Nicola RIZZOLI (ITA)",
+      "Assistant 1": "Renato FAVERANI (ITA)",
+      "Assistant 2": "Andrea STEFANI (ITA)",
+      "RoundID": 255959,
+      "MatchID": 300186501,
+      "Home Team Initials": "GER",
+      "Away Team Initials": "ARG"
+    },
+    {
+      "Year": 2014,
+      "Datetime": "09 Jul 2014 - 17:00",
+      "Stage": "Semi-finals",
+      "Stadium": "Arena de Sao Paulo",
+      "City": "Sao Paulo",
+      "Home Team Name": "Netherlands",
+      "Home Team Goals": 0,
+      "Away Team Goals": 0,
+      "Away Team Name": "Argentina",
+      "Win conditions": "Argentina win on penalties (2 - 4)",
+      "Attendance": 63267,
+      "Half-time Home Goals": 0,
+      "Half-time Away Goals": 0,
+      "Referee": "C�neyt �AKIR (TUR)",
+      "Assistant 1": "DURAN Bahattin (TUR)",
+      "Assistant 2": "ONGUN Tarik (TUR)",
+      "RoundID": 255955,
+      "MatchID": 300186490,
+      "Home Team Initials": "NED",
+      "Away Team Initials": "ARG"
+    },
+    {
+        "Year": 1930,
+        "Datetime": "30 Jul 1930 - 14:15",
+        "Stage": "Final",
+        "Stadium": "Estadio Centenario",
+        "City": "Montevideo",
+        "Home Team Name": "Uruguay",
+        "Home Team Goals": 4,
+        "Away Team Goals": 2,
+        "Away Team Name": "Argentina",
+        "Win conditions": "",
+        "Attendance": 68346,
+        "Half-time Home Goals": 1,
+        "Half-time Away Goals": 2,
+        "Referee": "LANGENUS Jean (BEL)",
+        "Assistant 1": "SAUCEDO Ulises (BOL)",
+        "Assistant 2": "CRISTOPHE Henry (BEL)",
+        "RoundID": 405,
+        "MatchID": 1087,
+        "Home Team Initials": "URU",
+        "Away Team Initials": "ARG"
+      },
+    {
+      "Year": 2014,
+      "Datetime": "05 Jul 2014 - 17:00",
+      "Stage": "Quarter-finals",
+      "Stadium": "Arena Fonte Nova",
+      "City": "Salvador",
+      "Home Team Name": "Netherlands",
+      "Home Team Goals": 0,
+      "Away Team Goals": 0,
+      "Away Team Name": "Costa Rica",
+      "Win conditions": "Netherlands win on penalties (4 - 3)",
+      "Attendance": 51179,
+      "Half-time Home Goals": 0,
+      "Half-time Away Goals": 0,
+      "Referee": "Ravshan IRMATOV (UZB)",
+      "Assistant 1": "RASULOV Abduxamidullo (UZB)",
+      "Assistant 2": "KOCHKAROV Bakhadyr (KGZ)",
+      "RoundID": 255953,
+      "MatchID": 300186488,
+      "Home Team Initials": "NED",
+      "Away Team Initials": "CRC"
+    },
+    {
+      "Year": 2014,
+      "Datetime": "05 Jul 2014 - 13:00",
+      "Stage": "Quarter-finals",
+      "Stadium": "Estadio Nacional",
+      "City": "Brasilia",
+      "Home Team Name": "Argentina",
+      "Home Team Goals": 1,
+      "Away Team Goals": 0,
+      "Away Team Name": "Belgium",
+      "Win conditions": "",
+      "Attendance": 68551,
+      "Half-time Home Goals": 1,
+      "Half-time Away Goals": 0,
+      "Referee": "Nicola RIZZOLI (ITA)",
+      "Assistant 1": "Renato FAVERANI (ITA)",
+      "Assistant 2": "Andrea STEFANI (ITA)",
+      "RoundID": 255953,
+      "MatchID": 300186504,
+      "Home Team Initials": "ARG",
+      "Away Team Initials": "BEL"
+    }
+  ];
+  function getFinals(data) {
+    return data.filter(val => val.Stage === "Final");
+ }
+*/
+function getAverageGoals(callback) {
+   return (Math.round(callback.map(val => val['Home Team Goals'] + val['Away Team Goals']).reduce((a,b) => a + b,0)/callback.length * 100)/100).toString();
+
 }
+//getAverageGoals(getFinals);
 
 
 
